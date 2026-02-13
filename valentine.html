@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С Днем Святого Валентина ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #ff4f81);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ЗВЕЗДЫ */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
+
+/* КОНВЕРТ */
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.6s;
+}
+
+.flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff4f81;
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+    transition: 0.8s;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    transform-origin: top;
+}
+
+.letter {
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    width: 80%;
+    height: 160px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    color: #ff4f81;
+    opacity: 0;
+    transition: 1.5s ease;
+}
+
+.envelope.open .letter {
+    opacity: 1;
+    transform: translateY(-30px);
+}
+
+/* КНОПКА */
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    background: white;
+    color: #ff4f81;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4f81;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* СЕРДЕЧКИ */
+.heart {
+    position: absolute;
+    color: white;
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) scale(1); opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 600px) {
+    .envelope {
+        width: 250px;
+        height: 170px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" onclick="openEnvelope(this)">
+    <div class="flap"></div>
+    <div class="letter">
+        <h2>С 14 февраля 💖</h2>
+        <p>
+            Ты — самое лучшее, что произошло в моей жизни ❤️<br><br>
+            Спасибо, что ты есть 💕<br><br>
+            Я тебя очень люблю 💞
+        </p>
+    </div>
+</div>
+
+<audio id="loveSound" src="love.mp3"></audio>
+
+<script>
+
+/* ОТКРЫТИЕ КОНВЕРТА */
+function openEnvelope(el) {
+    el.classList.add("open");
+    document.getElementById("loveSound").play();
+    explosion();
+}
+
+/* СЕРДЕЧКИ */
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}, 300);
+
+/* ЗВЕЗДЫ */
+for (let i = 0; i < 100; i++) {
+    let star = document.createElement("div");
+    star.classList.add("star");
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(star);
+}
+
+/* ВЗРЫВ СЕРДЕЦ */
+function explosion() {
+    for (let i = 0; i < 30; i++) {
+        let heart = document.createElement("div");
+        heart.innerText = "💖";
+        heart.style.position = "absolute";
+        heart.style.left = "50%";
+        heart.style.top = "50%";
+        heart.style.fontSize = "25px";
+        heart.style.transition = "1s";
+        document.body.appendChild(heart);
+
+        let x = (Math.random() - 0.5) * 600;
+        let y = (Math.random() - 0.5) * 600;
+
+        setTimeout(() => {
+            heart.style.transform = `translate(${x}px, ${y}px)`;
+            heart.style.opacity = 0;
+        }, 50);
+
+        setTimeout(() => heart.remove(), 1000);
+    }
+}
+</script>
+
+</body>
+</html>
